@@ -1,30 +1,23 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Printing;
+﻿using System.Drawing;
+using Console = Colorful.Console;
 
 namespace PixelConsole {
     class Program {
         static void Main(string[] args) {
-            Console.WriteLine("Hello World!");
-            GetColorByPixel();
+            Bitmap bmp = new Bitmap("../../../images/c.png");
+            int imageX = bmp.Width - 1;
+            int imageY = bmp.Height - 1;
+            for(int y = 0; y <= imageY; y++) {
+                for(int x = 0; x < imageX; x++) {
+                    Color pixelColor = bmp.GetPixel(x, y);
+                    byte red = pixelColor.R;
+                    byte green = pixelColor.G;
+                    byte blue = pixelColor.B;
+                    Console.Write("▇", Color.FromArgb(red, green, blue));
+                }
+                Console.WriteLine();
+            }
             Console.ReadKey();
         }
-
-        public static void GetColorByPixel() {
-            using(Bitmap bmp = new Bitmap("../../../images/google.jpg")) {
-                int x = bmp.Height / 2;
-                int y = bmp.Width / 2;
-                Color pixelColor = bmp.GetPixel(x, y);
-                
-                byte alpha = pixelColor.A;
-                byte red = pixelColor.R;
-                byte green = pixelColor.G;
-                byte blue = pixelColor.B;
-
-                Console.WriteLine("XY= " + x + "," + y);
-                Console.WriteLine("ARGB= " + alpha + "," + red + "," + green + "," + blue);
-            }
-        }
-
     }
 }
